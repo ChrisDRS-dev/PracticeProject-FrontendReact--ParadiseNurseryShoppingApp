@@ -1,0 +1,173 @@
+[
+  {
+    "id": "monstera-deliciosa",
+    "name": {
+      "es": "Monstera Deliciosa",
+      "en": "Monstera Deliciosa"
+    },
+    "category": {
+      "id": "interior",
+      "es": "Interior",
+      "en": "Indoor"
+    },
+    "price": 28.5,
+    "badge": "bestseller",
+    "description": {
+      "es": "Famosa por sus características hojas hendidas. Aporta un porte tropical y vibrante.",
+      "en": "Famous for its natural split leaves. Brings a vibrant, tropical presence to any room."
+    },
+    "image": "https://images.unsplash.com/photo-1614594975525-e45190c55d0b?auto=format&fit=crop&w=600&q=80"
+  },
+  {
+    "id": "ficus-lyrata",
+    "name": {
+      "es": "Ficus Lyrata",
+      "en": "Fiddle Leaf Fig"
+    },
+    "category": {
+      "id": "interior",
+      "es": "Interior",
+      "en": "Indoor"
+    },
+    "price": 34.0,
+    "badge": "new",
+    "description": {
+      "es": "Grandes hojas coriáceas en forma de violín, ideales para decoración contemporánea.",
+      "en": "Broad, sculptural violin-shaped leaves that elevate any modern interior space."
+    },
+    "image": "https://images.unsplash.com/photo-1597055181300-e3633a207518?auto=format&fit=crop&w=600&q=80"
+  },
+  {
+    "id": "sansevieria-trifasciata",
+    "name": {
+      "es": "Sansevieria Trifasciata",
+      "en": "Snake Plant"
+    },
+    "category": {
+      "id": "purificadoras",
+      "es": "Purificadoras",
+      "en": "Air Purifying"
+    },
+    "price": 18.0,
+    "badge": "popular",
+    "description": {
+      "es": "Planta sumamente resistente y eficiente filtrando toxinas en ambientes interiores.",
+      "en": "Remarkably hardy plant that efficiently purifies indoor air and produces oxygen."
+    },
+    "image": "https://images.unsplash.com/photo-1599598425947-5202edd564c5?auto=format&fit=crop&w=600&q=80"
+  },
+  {
+    "id": "spathiphyllum",
+    "name": {
+      "es": "Lirio de la Paz",
+      "en": "Peace Lily"
+    },
+    "category": {
+      "id": "purificadoras",
+      "es": "Purificadoras",
+      "en": "Air Purifying"
+    },
+    "price": 22.0,
+    "badge": null,
+    "description": {
+      "es": "Follaje verde lustroso con elegantes espatas blancas que purifican el ambiente.",
+      "en": "Lush glossy foliage with graceful white blooms that naturally filter household toxins."
+    },
+    "image": "https://images.unsplash.com/photo-1593691509543-c55fb32e7355?auto=format&fit=crop&w=600&q=80"
+  },
+  {
+    "id": "epipremnum-aureum",
+    "name": {
+      "es": "Pothos Dorado",
+      "en": "Golden Pothos"
+    },
+    "category": {
+      "id": "purificadoras",
+      "es": "Purificadoras",
+      "en": "Air Purifying"
+    },
+    "price": 14.5,
+    "badge": "popular",
+    "description": {
+      "es": "Enredadera vivaz de hojas acorazonadas con sutiles matices color oro.",
+      "en": "Trailing evergreen vine featuring heart-shaped leaves marbled with golden hues."
+    },
+    "image": "https://images.unsplash.com/photo-1598880940080-ff9a29891b85?auto=format&fit=crop&w=600&q=80"
+  },
+  {
+    "id": "aloe-barbadensis",
+    "name": {
+      "es": "Aloe Vera",
+      "en": "Aloe Vera"
+    },
+    "category": {
+      "id": "suculentas",
+      "es": "Suculentas",
+      "en": "Succulents"
+    },
+    "price": 12.0,
+    "badge": null,
+    "description": {
+      "es": "Hojas carnosas y propiedades regenerativas; requiere escaso riego y luz directa.",
+      "en": "Succulent with soothing restorative gel; thrives in sunny spots with minimal watering."
+    },
+    "image": "https://images.unsplash.com/photo-1567689265664-1c48de61db0b?auto=format&fit=crop&w=600&q=80"
+  },
+  {
+    "id": "echeveria-elegans",
+    "name": {
+      "es": "Echeveria Elegans",
+      "en": "Mexican Snowball"
+    },
+    "category": {
+      "id": "suculentas",
+      "es": "Suculentas",
+      "en": "Succulents"
+    },
+    "price": 9.5,
+    "badge": "new",
+    "description": {
+      "es": "Roseta compacta en tono azul plateado, perfecta para espacios reducidos y escritorios.",
+      "en": "Compact silvery-blue succulent rosettes, perfect for desks, ledges, and terrariums."
+    },
+    "image": "https://images.unsplash.com/photo-1509423350716-97f9360b4e09?auto=format&fit=crop&w=600&q=80"
+  },
+  {
+    "id": "lavandula-angustifolia",
+    "name": {
+      "es": "Lavanda Francesa",
+      "en": "French Lavender"
+    },
+    "category": {
+      "id": "aromaticas",
+      "es": "Aromáticas",
+      "en": "Aromatic"
+    },
+    "price": 16.5,
+    "badge": "bestseller",
+    "description": {
+      "es": "Fragancia relajante inconfundible y espigas florales lilas para balcones soleados.",
+      "en": "Soothing aromatic herb with delicate purple flowers, ideal for sunny patios."
+    },
+    "image": "https://images.unsplash.com/photo-1528183429752-a97d0bf99b5a?auto=format&fit=crop&w=600&q=80"
+  },
+  {
+    "id": "rosmarinus-officinalis",
+    "name": {
+      "es": "Romero Real",
+      "en": "Culinary Rosemary"
+    },
+    "category": {
+      "id": "aromaticas",
+      "es": "Aromáticas",
+      "en": "Aromatic"
+    },
+    "price": 11.0,
+    "badge": null,
+    "description": {
+      "es": "Arbusto mediterráneo aromático muy resistente, ideal tanto culinaria como ornamentalmente.",
+      "en": "Hardy Mediterranean shrub with pine-like fragrance, prized for both kitchen and garden."
+    },
+    "image": "https://images.unsplash.com/photo-1515542622106-78bda8ba0e5b?auto=format&fit=crop&w=600&q=80"
+  }
+]

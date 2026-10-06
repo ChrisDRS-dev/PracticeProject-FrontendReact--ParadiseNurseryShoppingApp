@@ -1,0 +1,331 @@
+.payment-form-container {
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: 20px;
+  padding: 1.75rem;
+  box-shadow: var(--shadow-card);
+}
+
+.payment-header {
+  margin-bottom: 1.5rem;
+}
+
+.payment-title {
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: var(--color-text);
+  margin: 0 0 0.35rem;
+}
+
+.payment-subtitle {
+  font-size: 0.9rem;
+  color: var(--color-text-secondary);
+  margin: 0;
+}
+
+/* Tabs de métodos */
+.payment-methods-selector {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.65rem;
+  margin-bottom: 1.5rem;
+}
+
+.method-tab-btn {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.85rem 0.5rem;
+  background: var(--bg-surface-elevated);
+  border: 1px solid var(--border-subtle);
+  border-radius: 12px;
+  color: var(--color-text-secondary);
+  font-size: 0.8rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-align: center;
+}
+
+.method-tab-btn:hover {
+  color: var(--color-text);
+  border-color: var(--border-hover);
+}
+
+.method-tab-btn.active {
+  background: var(--bg-accent-subtle);
+  border-color: var(--accent-moss);
+  color: var(--accent-moss);
+}
+
+[data-theme='light'] .method-tab-btn.active {
+  background: #eaf1ec;
+  color: #244b2d;
+  border-color: #244b2d;
+}
+
+.method-icon {
+  width: 22px;
+  height: 22px;
+}
+
+/* Contenido de métodos con animación de entrada */
+.method-content {
+  animation: fadeInMethod 0.25s ease-out forwards;
+}
+
+@keyframes fadeInMethod {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Vista previa de tarjeta sobria */
+.card-mockup-preview {
+  position: relative;
+  background: linear-gradient(135deg, #1f2721 0%, #171d18 100%);
+  border: 1px solid var(--border-subtle);
+  border-radius: 16px;
+  padding: 1.4rem;
+  color: #f1f5f9;
+  margin-bottom: 1.5rem;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.35);
+  transition: transform 0.2s ease;
+}
+
+[data-theme='light'] .card-mockup-preview {
+  background: linear-gradient(135deg, #28332a 0%, #1e2620 100%);
+  color: #ffffff;
+}
+
+.card-mockup-preview:hover {
+  transform: translateY(-2px);
+}
+
+.card-chip {
+  width: 36px;
+  height: 24px;
+  background: linear-gradient(135deg, #d4af37 0%, #aa8c2c 100%);
+  border-radius: 5px;
+  margin-bottom: 1.25rem;
+}
+
+.card-number-display {
+  font-family: monospace;
+  font-size: 1.2rem;
+  letter-spacing: 0.16em;
+  margin-bottom: 1.25rem;
+  color: #f1f5f9;
+}
+
+.card-footer-display {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+}
+
+.card-label {
+  font-size: 0.65rem;
+  color: #9ca3af;
+  letter-spacing: 0.05em;
+  display: block;
+  margin-bottom: 2px;
+}
+
+.card-name-text,
+.card-exp-text {
+  font-size: 0.86rem;
+  font-weight: 600;
+  margin: 0;
+  letter-spacing: 0.03em;
+  color: #f1f5f9;
+}
+
+/* Form inputs */
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+  margin-bottom: 1rem;
+}
+
+.form-group label {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--color-text-secondary);
+}
+
+.input-field {
+  background: var(--bg-surface-elevated);
+  border: 1px solid var(--border-subtle);
+  border-radius: 10px;
+  padding: 0.75rem 0.9rem;
+  color: var(--color-text);
+  font-size: 0.92rem;
+  outline: none;
+  transition: border-color 0.2s ease;
+}
+
+.input-field:focus {
+  border-color: var(--accent-moss);
+}
+
+.form-row-two {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+/* Flujo Wallet */
+.wallet-select-label {
+  font-size: 0.88rem;
+  color: var(--color-text-secondary);
+  margin: 0 0 0.85rem;
+}
+
+.wallet-providers-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.75rem;
+  margin-bottom: 1.5rem;
+}
+
+.wallet-provider-card {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.9rem 0.5rem;
+  background: var(--bg-surface-elevated);
+  border: 1px solid var(--border-subtle);
+  border-radius: 12px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.wallet-provider-card:hover {
+  border-color: var(--border-hover);
+}
+
+.wallet-provider-card.selected {
+  background: var(--bg-accent-subtle);
+  border-color: var(--accent-moss);
+}
+
+.wallet-svg-icon {
+  width: 38px;
+  height: 26px;
+  object-fit: contain;
+  display: block;
+}
+
+[data-theme='dark'] .wallet-svg-icon {
+  filter: brightness(1.1);
+}
+
+.wallet-name {
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.wallet-security-hint {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.85rem;
+  background: var(--bg-accent-subtle);
+  border-radius: 10px;
+  color: var(--accent-moss);
+  font-size: 0.85rem;
+  margin-bottom: 1.5rem;
+}
+
+.wallet-security-hint svg {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+}
+
+/* Flujo Cash */
+.cash-notice-box {
+  text-align: center;
+  padding: 2.2rem 1.25rem;
+  background: var(--bg-surface-elevated);
+  border: 1px dashed var(--border-subtle);
+  border-radius: 16px;
+  margin-bottom: 1.75rem;
+}
+
+.cash-icon-large {
+  font-size: 2.6rem;
+  margin-bottom: 0.75rem;
+}
+
+.cash-notice-title {
+  font-size: 1rem;
+  color: var(--color-text);
+  margin: 0 0 0.45rem;
+  font-weight: 600;
+}
+
+.cash-notice-detail {
+  font-size: 0.86rem;
+  color: var(--color-text-secondary);
+  margin: 0;
+}
+
+/* Botón Pagar */
+.btn-pay-submit {
+  width: 100%;
+  padding: 0.95rem 1.5rem;
+  background: var(--accent-moss);
+  border: none;
+  border-radius: 10px;
+  color: var(--accent-moss-text);
+  font-size: 1rem;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+  margin-top: 0.5rem;
+}
+
+.btn-pay-submit:hover:not(:disabled) {
+  background: var(--accent-moss-hover);
+  transform: translateY(-1px);
+}
+
+.btn-pay-submit:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
+.processing-indicator {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+
+.spinner {
+  width: 16px;
+  height: 16px;
+  border: 2px solid rgba(255, 255, 255, 0.3);
+  border-top-color: #ffffff;
+  border-radius: 50%;
+  animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}

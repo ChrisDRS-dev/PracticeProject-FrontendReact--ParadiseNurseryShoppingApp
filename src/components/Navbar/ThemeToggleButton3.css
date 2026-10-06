@@ -1,0 +1,42 @@
+.theme-toggle-btn-skiper {
+  position: relative;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 8px;
+  cursor: pointer;
+  border: 1px solid var(--border-subtle);
+  background: var(--bg-surface);
+  color: var(--color-text);
+  transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: var(--shadow-card);
+}
+
+.theme-toggle-btn-skiper:hover {
+  border-color: var(--border-hover);
+  transform: translateY(-1px);
+}
+
+.theme-toggle-btn-skiper:active {
+  transform: scale(0.95);
+}
+
+.theme-toggle-btn-skiper.is-dark {
+  background: #181c19;
+  color: #f3f4f1;
+}
+
+.theme-toggle-btn-skiper.is-light {
+  background: #ffffff;
+  color: #191c19;
+}
+
+.skiper-svg {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+

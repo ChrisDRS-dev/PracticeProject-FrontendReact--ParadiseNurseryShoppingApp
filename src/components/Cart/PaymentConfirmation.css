@@ -1,0 +1,192 @@
+.confirmation-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  background: rgba(0, 0, 0, 0.75);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+  animation: overlayFadeIn 0.25s ease-out forwards;
+}
+
+@keyframes overlayFadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.confirmation-modal {
+  width: 100%;
+  max-width: 460px;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-subtle);
+  border-radius: 24px;
+  padding: 2.5rem 2rem 2rem;
+  text-align: center;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+  animation: modalPopIn 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+}
+
+@keyframes modalPopIn {
+  from {
+    opacity: 0;
+    transform: scale(0.9) translateY(16px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+/* Ícono de éxito sobrio */
+.success-icon-container {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 76px;
+  height: 76px;
+  border-radius: 50%;
+  background: var(--accent-moss);
+  color: var(--accent-moss-text);
+  margin-bottom: 1.5rem;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+}
+
+.success-circle-pulse {
+  position: absolute;
+  inset: -6px;
+  border-radius: 50%;
+  border: 2px solid var(--accent-moss);
+  animation: pulseRings 2s infinite ease-out;
+}
+
+@keyframes pulseRings {
+  0% {
+    transform: scale(0.95);
+    opacity: 0.8;
+  }
+  100% {
+    transform: scale(1.25);
+    opacity: 0;
+  }
+}
+
+.success-checkmark {
+  width: 38px;
+  height: 38px;
+  stroke-dasharray: 50;
+  stroke-dashoffset: 50;
+  animation: checkDraw 0.45s 0.15s ease forwards;
+}
+
+@keyframes checkDraw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+.confirmation-badge {
+  display: inline-block;
+  padding: 0.25rem 0.85rem;
+  background: var(--bg-accent-subtle);
+  border: 1px solid var(--border-subtle);
+  border-radius: 9999px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--accent-moss);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 0.75rem;
+}
+
+.confirmation-title {
+  font-size: 1.65rem;
+  font-weight: 700;
+  color: var(--color-text);
+  margin: 0 0 0.5rem;
+}
+
+.confirmation-desc {
+  font-size: 0.98rem;
+  color: var(--color-text-secondary);
+  margin: 0 0 1.75rem;
+  line-height: 1.5;
+}
+
+/* Caja de detalles */
+.confirmation-details-box {
+  background: var(--bg-surface-elevated);
+  border: 1px solid var(--border-subtle);
+  border-radius: 14px;
+  padding: 1.25rem;
+  margin-bottom: 1.75rem;
+  text-align: left;
+}
+
+.detail-item {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.6rem;
+  font-size: 0.92rem;
+}
+
+.detail-label {
+  color: var(--color-text-secondary);
+}
+
+.detail-value {
+  color: var(--color-text);
+  font-weight: 600;
+}
+
+.total-highlight {
+  color: var(--accent-moss);
+  font-size: 1.15rem;
+  font-weight: 800;
+}
+
+.detail-pickup {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.6rem;
+  margin-top: 0.85rem;
+  padding-top: 0.85rem;
+  border-top: 1px solid var(--border-subtle);
+  color: var(--color-text-secondary);
+  font-size: 0.85rem;
+  line-height: 1.4;
+}
+
+.pickup-icon {
+  width: 17px;
+  height: 17px;
+  color: var(--accent-moss);
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+/* Botón volver */
+.btn-back-catalog {
+  width: 100%;
+  padding: 0.9rem 1.5rem;
+  background: var(--accent-moss);
+  border: none;
+  border-radius: 10px;
+  color: var(--accent-moss-text);
+  font-size: 0.98rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-back-catalog:hover {
+  background: var(--accent-moss-hover);
+  transform: translateY(-1px);
+}
