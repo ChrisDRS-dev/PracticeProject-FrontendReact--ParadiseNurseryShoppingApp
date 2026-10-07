@@ -5,18 +5,23 @@
   --bg-surface-elevated: #212622;
   --bg-accent-subtle: rgba(54, 94, 61, 0.16);
 
-  --color-text: #f3f4f1;
-  --color-text-secondary: #9ca3af;
-  --color-text-muted: #6b7280;
+  --color-text: #f5f6f3;
+  --color-text-secondary: #b8beb8;
+  --color-text-muted: #828a83;
 
-  --border-subtle: rgba(255, 255, 255, 0.08);
-  --border-hover: rgba(255, 255, 255, 0.16);
-  --border-focus: rgba(65, 113, 73, 0.5);
+  --text-primary: #f5f6f3;
+  --text-secondary: #b8beb8;
+  --text-muted: #828a83;
+  --bg-card: #181c19;
 
-  /* Acento: Verde Musgo Oscuro */
-  --accent-moss: #365e3d;
-  --accent-moss-hover: #417149;
-  --accent-moss-active: #2b4c31;
+  --border-subtle: rgba(255, 255, 255, 0.12);
+  --border-hover: rgba(255, 255, 255, 0.22);
+  --border-focus: rgba(75, 130, 85, 0.6);
+
+  /* Acento: Verde Musgo Oscuro con buen contraste */
+  --accent-moss: #3e6e46;
+  --accent-moss-hover: #4c8555;
+  --accent-moss-active: #325838;
   --accent-moss-text: #ffffff;
 
   /* Badges */
@@ -51,6 +56,11 @@
   --color-text: #191c19;
   --color-text-secondary: #525a54;
   --color-text-muted: #838e85;
+
+  --text-primary: #191c19;
+  --text-secondary: #525a54;
+  --text-muted: #838e85;
+  --bg-card: #ffffff;
 
   --border-subtle: rgba(0, 0, 0, 0.09);
   --border-hover: rgba(0, 0, 0, 0.18);

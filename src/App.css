@@ -1,6 +1,31 @@
+/* Paradise Nursery - App Styles & Landing Background */
+
 .app-container {
   display: flex;
   flex-direction: column;
   min-height: 100vh;
   width: 100%;
+  position: relative;
+  background-color: var(--bg-base);
+  color: var(--text-primary);
+  transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+/* Landing Page Background Image implementation (Task 3) */
+.landing-page {
+  position: relative;
+  width: 100%;
+  min-height: calc(100vh - 4.5rem);
+  background-image: url('./assets/hero-background.png');
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  display: flex;
+  flex-direction: column;
+}
+
+.landing-hero-wrapper {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;
 }

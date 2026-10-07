@@ -1,8 +1,12 @@
 import { useState, useEffect } from 'react'
+import { useSelector } from 'react-redux'
 import { useTranslation } from 'react-i18next'
 import ThemeToggleButton3 from './ThemeToggleButton3'
 import LanguageToggleButton from './LanguageToggleButton'
-import cartIcon from '../../assets/el--shopping-cart-sign.svg'
+import logoLight from '../../assets/LOGO--plants-and-animals-svgrepo-com.svg'
+import logoDark from '../../assets/LOGO--plants-and-animals-svgrepo-com--dark.svg'
+import cartIconLight from '../../assets/el--shopping-cart-sign.svg'
+import cartIconDark from '../../assets/el--shopping-cart-sign--dark.svg'
 import './Navbar.css'
 
 function Navbar({
@@ -13,7 +17,18 @@ function Navbar({
   onToggleTheme,
 }) {
   const { t, i18n } = useTranslation()
+  const reduxCartItems = useSelector((state) => state?.cart?.items || [])
+  const reduxCount = reduxCartItems.reduce((acc, item) => acc + item.quantity, 0)
+  const effectiveCartCount =
+    typeof cartTotalCount === 'number' ? cartTotalCount : reduxCount
+
+  const isDark = theme === 'dark'
+  const logoSrc = isDark ? logoDark : logoLight
+  const cartIconSrc = isDark ? cartIconDark : cartIconLight
+
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
+
+
 
   const currentLang = i18n.language.startsWith('es') ? 'es' : 'en'
 
@@ -76,21 +91,12 @@ function Navbar({
             className="navbar-brand-btn"
             onClick={() => handleNavClick('landing')}
           >
-            <svg
-              className="navbar-brand-icon"
-              viewBox="0 0 24 24"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="2"
-              strokeLinecap="round"
-              strokeLinejoin="round"
+            <img
+              src={logoSrc}
+              alt=""
+              className="navbar-brand-logo-img"
               aria-hidden="true"
-            >
-              <path d="M7 20h10" />
-              <path d="M10 20c0-5 3-7 6-8" />
-              <path d="M4 14c4.5 0 7-3 8-7C8 7 5.5 9.5 4 14z" />
-              <path d="M12 12c1.5-3.5 4-5.5 8-6-1 4.5-3.5 7-8 6z" />
-            </svg>
+            />
             <span className="navbar-brand-name">{t('nav.brand')}</span>
           </button>
 
@@ -138,12 +144,12 @@ function Navbar({
               aria-label={t('nav.cartAria')}
             >
               <img
-                src={cartIcon}
+                src={cartIconSrc}
                 alt=""
                 className="cart-asset-icon"
                 aria-hidden="true"
               />
-              <span className="cart-badge">{cartTotalCount}</span>
+              <span className="cart-badge">{effectiveCartCount}</span>
             </button>
           </div>
         </nav>
@@ -162,21 +168,12 @@ function Navbar({
           {/* Header del Sidebar */}
           <div className="drawer-header">
             <div className="drawer-brand">
-              <svg
-                className="navbar-brand-icon"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="currentColor"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
+              <img
+                src={logoSrc}
+                alt=""
+                className="drawer-brand-logo-img"
                 aria-hidden="true"
-              >
-                <path d="M7 20h10" />
-                <path d="M10 20c0-5 3-7 6-8" />
-                <path d="M4 14c4.5 0 7-3 8-7C8 7 5.5 9.5 4 14z" />
-                <path d="M12 12c1.5-3.5 4-5.5 8-6-1 4.5-3.5 7-8 6z" />
-              </svg>
+              />
               <span>{t('nav.brand')}</span>
             </div>
 
@@ -208,7 +205,12 @@ function Navbar({
                   className={`drawer-nav-item ${currentPage === 'landing' ? 'active' : ''}`}
                   onClick={() => handleNavClick('landing')}
                 >
-                  <span className="drawer-item-icon">🌱</span>
+                  <span className="drawer-item-icon" aria-hidden="true">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="m3 9 9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+                      <polyline points="9 22 9 12 15 12 15 22" />
+                    </svg>
+                  </span>
                   <span>{t('nav.home')}</span>
                 </button>
               </li>
@@ -218,7 +220,12 @@ function Navbar({
                   className={`drawer-nav-item ${currentPage === 'catalog' ? 'active' : ''}`}
                   onClick={() => handleNavClick('catalog')}
                 >
-                  <span className="drawer-item-icon">🪴</span>
+                  <span className="drawer-item-icon" aria-hidden="true">
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.48 19 2c1 2 2 4.18 2 8 0 5.5-4.78 10-10 10Z" />
+                      <path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12" />
+                    </svg>
+                  </span>
                   <span>{t('nav.plants')}</span>
                 </button>
               </li>
@@ -228,10 +235,12 @@ function Navbar({
                   className={`drawer-nav-item ${currentPage === 'cart' ? 'active' : ''}`}
                   onClick={() => handleNavClick('cart')}
                 >
-                  <span className="drawer-item-icon">🛒</span>
+                  <span className="drawer-item-icon" aria-hidden="true">
+                    <img src={cartIconSrc} alt="" style={{ width: 20, height: 20, objectFit: 'contain' }} />
+                  </span>
                   <span>{t('nav.cart')}</span>
-                  {cartTotalCount > 0 && (
-                    <span className="drawer-cart-badge">{cartTotalCount}</span>
+                  {effectiveCartCount > 0 && (
+                    <span className="drawer-cart-badge">{effectiveCartCount}</span>
                   )}
                 </button>
               </li>

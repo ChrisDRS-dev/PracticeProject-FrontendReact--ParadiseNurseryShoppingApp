@@ -124,14 +124,16 @@
 }
 
 .category-item-btn.active {
-  background: var(--bg-accent-subtle);
-  color: var(--accent-moss);
+  background: rgba(62, 110, 70, 0.28);
+  color: #c4ebd0;
+  border-left: 3px solid var(--accent-moss);
   font-weight: 700;
 }
 
 [data-theme='light'] .category-item-btn.active {
   background: #eaf1ec;
-  color: #244b2d;
+  color: #1e3823;
+  border-left: 3px solid #2b5433;
 }
 
 /* Rango de Precios */

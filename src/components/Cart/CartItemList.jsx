@@ -146,7 +146,11 @@ function CartItemList({
           className="btn-continue-shopping"
           onClick={onContinueShopping}
         >
-          ← {t('cart.continueShopping')}
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true" style={{ display: 'inline-block', verticalAlign: 'middle', marginRight: '6px' }}>
+            <line x1="19" y1="12" x2="5" y2="12" />
+            <polyline points="12 19 5 12 12 5" />
+          </svg>
+          <span>{t('cart.continueShopping')}</span>
         </button>
       </div>
     </div>

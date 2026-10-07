@@ -1,12 +1,23 @@
 import { useState } from 'react'
 import { useTranslation } from 'react-i18next'
-import applePayIcon from '../../assets/cib--cc-apple-pay.svg'
-import googlePayIcon from '../../assets/cib--google-pay.svg'
-import paypalIcon from '../../assets/cib--cc-paypal.svg'
+import useTheme from '../../hooks/useTheme'
+import applePayLight from '../../assets/cib--cc-apple-pay.svg'
+import applePayDark from '../../assets/cib--cc-apple-pay--dark.svg'
+import googlePayLight from '../../assets/cib--google-pay.svg'
+import googlePayDark from '../../assets/cib--google-pay--dark.svg'
+import paypalLight from '../../assets/cib--cc-paypal.svg'
+import paypalDark from '../../assets/cib--cc-paypal--dark.svg'
 import './PaymentForm.css'
 
 function PaymentForm({ total, onPaymentSuccess }) {
   const { t } = useTranslation()
+  const theme = useTheme()
+  const isDark = theme === 'dark'
+
+  const applePayIcon = isDark ? applePayDark : applePayLight
+  const googlePayIcon = isDark ? googlePayDark : googlePayLight
+  const paypalIcon = isDark ? paypalDark : paypalLight
+
   const [method, setMethod] = useState('card') // 'card' | 'wallet' | 'cash'
   const [isProcessing, setIsProcessing] = useState(false)
 
@@ -282,7 +293,12 @@ function PaymentForm({ total, onPaymentSuccess }) {
         {method === 'cash' && (
           <div className="method-content method-cash-view">
             <div className="cash-notice-box">
-              <div className="cash-icon-large">🏪</div>
+              <div className="cash-icon-large" aria-hidden="true">
+                <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z" />
+                  <polyline points="9 22 9 12 15 12 15 22" />
+                </svg>
+              </div>
               <h4 className="cash-notice-title">
                 {t('checkout.cashForm.note')}
               </h4>

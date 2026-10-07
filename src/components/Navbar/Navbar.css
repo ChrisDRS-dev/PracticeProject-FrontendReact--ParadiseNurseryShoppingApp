@@ -79,6 +79,18 @@
   stroke: var(--accent-moss);
 }
 
+.navbar-brand-logo-img {
+  width: 34px;
+  height: 34px;
+  object-fit: contain;
+}
+
+.drawer-brand-logo-img {
+  width: 28px;
+  height: 28px;
+  object-fit: contain;
+}
+
 /* Links Desktop */
 .navbar-desktop-links {
   display: flex;

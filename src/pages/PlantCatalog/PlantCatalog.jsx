@@ -10,7 +10,6 @@ function PlantCatalog({ cart, onAddToCart }) {
 
   // Lista de plantas con conexión a la API de Perenual y fallback a plants.json
   const [plantsList, setPlantsList] = useState(localPlantsData)
-  const [dataSource, setDataSource] = useState('local') // 'local' | 'perenual'
   const [isLoading, setIsLoading] = useState(false)
 
   // Estados de filtrado y ordenamiento
@@ -27,7 +26,6 @@ function PlantCatalog({ cart, onAddToCart }) {
       .then((result) => {
         if (isMounted && result.plants && result.plants.length > 0) {
           setPlantsList(result.plants)
-          setDataSource(result.source)
         }
       })
       .catch((err) => {
@@ -245,11 +243,6 @@ function PlantCatalog({ cart, onAddToCart }) {
               <span className="products-count-text">
                 {t('catalog.showingCount', { count: filteredAndSortedPlants.length })}
               </span>
-              {dataSource === 'perenual' && (
-                <span className="api-source-badge" title="Datos sincronizados con Perenual Botanical API">
-                  ⚡ Perenual API
-                </span>
-              )}
             </div>
 
             <div className="sort-by-wrapper">

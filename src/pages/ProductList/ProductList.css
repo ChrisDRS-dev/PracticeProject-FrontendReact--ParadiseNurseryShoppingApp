@@ -1,0 +1,177 @@
+@import '../PlantCatalog/PlantCatalog.css';
+
+.product-list-wrapper {
+  width: 100%;
+  min-height: calc(100vh - 4.5rem);
+  display: flex;
+  flex-direction: column;
+  position: relative;
+}
+
+/* Header superior con botón de Logística */
+.catalog-header-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1rem;
+  width: 100%;
+}
+
+
+/* Categorías y Grillas */
+.catalog-categories-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 3rem;
+  width: 100%;
+}
+
+.category-section-block {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+  width: 100%;
+}
+
+.category-section-header {
+  display: flex;
+  align-items: baseline;
+  gap: 0.75rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.category-section-title {
+  font-size: 1.45rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  letter-spacing: -0.01em;
+}
+
+.category-plant-count {
+  font-size: 0.85rem;
+  color: var(--color-text-secondary);
+}
+
+/* Badges de Stock en el producto */
+.product-stock-tag {
+  position: absolute;
+  bottom: 0.75rem;
+  right: 0.75rem;
+  z-index: 2;
+  font-size: 0.725rem;
+  font-weight: 600;
+  padding: 0.25rem 0.6rem;
+  border-radius: 9999px;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.product-stock-tag.available {
+  background-color: rgba(17, 20, 18, 0.75);
+  color: #e5e7eb;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.product-stock-tag.low {
+  background-color: rgba(234, 179, 8, 0.85);
+  color: #111412;
+  font-weight: 700;
+}
+
+.product-stock-tag.out {
+  background-color: rgba(220, 53, 69, 0.9);
+  color: #ffffff;
+  font-weight: 700;
+}
+
+.product-card-img.dimmed {
+  filter: grayscale(80%) opacity(0.65);
+}
+
+/* Botones Deshabilitados */
+.btn-add-moss.added-disabled,
+.btn-add-moss.stock-depleted-disabled {
+  background-color: var(--bg-surface);
+  color: var(--text-muted);
+  border: 1px solid var(--border-subtle);
+  cursor: not-allowed;
+  opacity: 0.7;
+  transform: none !important;
+  box-shadow: none !important;
+}
+
+.btn-add-moss.stock-depleted-disabled {
+  background-color: rgba(220, 53, 69, 0.08);
+  color: #dc3545;
+  border-color: rgba(220, 53, 69, 0.2);
+}
+
+@media (max-width: 900px) {
+  .dashboard-stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .logistics-toast {
+    left: 1rem;
+    right: 1rem;
+    bottom: 1rem;
+  }
+}
+
+/* Card interactive styling */
+.product-card {
+  cursor: pointer;
+  position: relative;
+  outline: none;
+}
+
+.product-card:focus-visible {
+  border-color: var(--accent-moss);
+  box-shadow: 0 0 0 3px rgba(44, 90, 58, 0.3);
+}
+
+.product-quick-detail-hint {
+  position: absolute;
+  top: 0.75rem;
+  right: 0.75rem;
+  background: rgba(17, 20, 18, 0.75);
+  backdrop-filter: blur(6px);
+  -webkit-backdrop-filter: blur(6px);
+  color: #e5e7eb;
+  font-size: 0.72rem;
+  font-weight: 600;
+  padding: 0.25rem 0.65rem;
+  border-radius: 9999px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  opacity: 0;
+  transform: translateY(-4px);
+  transition: all 0.2s ease;
+  pointer-events: none;
+  z-index: 3;
+}
+
+.product-card:hover .product-quick-detail-hint {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Footer info at the bottom of the catalog grid */
+.catalog-bottom-footer-info {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.25rem;
+  flex-wrap: wrap;
+  padding: 2.5rem 1.5rem 1rem;
+  margin-top: 2rem;
+  border-top: 1px solid var(--border-subtle);
+}
+
+.catalog-top-bar {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  padding-bottom: 0.75rem;
+}
