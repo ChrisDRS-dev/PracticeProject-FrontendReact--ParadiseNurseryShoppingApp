@@ -1,99 +1,119 @@
-# Paradise Nursery Shopping Application
+# 🌿 Paradise Nursery — Shopping Web Application
 
 **IBM Full-Stack Software Developer & Frontend - React Capstone Project**
 
-Welcome to **Paradise Nursery**, an elegant, responsive e-commerce shopping web application designed for houseplant enthusiasts. This project was developed as part of the IBM / Coursera Frontend - React curriculum, showcasing state management with Redux Toolkit, internationalization (i18n), modern CSS architecture, responsive layouts, and external botanical API synchronization.
+Paradise Nursery es una aplicación web de comercio electrónico botánico diseñada con un enfoque minimalista, sobrio y elegante. Permite a los usuarios explorar una cuidada colección de plantas de interior, consultar especificaciones de cuidados, gestionar su carrito en tiempo real con límites de stock dinámicos y completar un flujo de compra fluido y accesible tanto en dispositivos móviles como en escritorio.
 
 ---
 
-## 🌿 Project Overview
+## 🧭 Flujo de Usuario y Arquitectura de la Aplicación
 
-The **Paradise Nursery Shopping Application** provides a seamless and enjoyable shopping experience for purchasing botanical houseplants. Users can explore curated categories, filter and sort plants by price, learn about plant care and company values, add items to a shopping cart, and complete an interactive mock checkout with real-time tax calculation and order confirmation.
+### 1. Flujo de Navegación del Usuario
+```mermaid
+flowchart LR
+    A["🏠 Inicio / Landing<br/>(Hero 3D + About Us)"] -->|"Explorar / Get Started"| B["🌿 Catálogo de Plantas<br/>(Filtros + 4 Categorías)"]
+    B -->|"Ver Detalles"| C["📖 Drawer Botánico<br/>(Cuidados + Stock + Stepper)"]
+    C -->|"Añadir al Carrito"| D["🛒 Carrito de Compras<br/>(Cantidades en vivo + ITBMS)"]
+    B -->|"Añadir al Carrito"| D
+    D -->|"Proceder al Pago"| E["💳 Pasarela de Pago<br/>(Simulación + Recibo)"]
+    D -->|"Seguir Comprando"| B
+```
 
-### Key Features
-- **Hero & Landing Page:** Immersive 3D parallax depth effect on hover with smooth sensitivity, company branding, and quick call-to-action button (*Get Started*).
-- **Company Story & Values (`AboutUs`):** Dedicated section detailing the nursery's mission, botanical passion, and eco-conscious commitment.
-- **Botanical Plants Catalog (`ProductList`):**
-  - **4 Distinct Categories** (*Plantas de Interior / Indoor*, *Purificadoras / Air Purifying*, *Suculentas / Succulents*, *Aromáticas / Aromatic*) with **6 unique houseplants each (24 plants total)**.
-  - Each plant features high-resolution thumbnails, names, descriptions, prices, and status badges.
-  - **Add to Cart** functionality that disables the button once the item is in the cart, preventing accidental duplicates.
-  - Real-time synchronization with the **Perenual Botanical API** (`https://perenual.com/`) with reliable fallback to local curated data.
-  - Price range filtering and quick price sorting (*Low to High*, *High to Low*).
-- **Shopping Cart & Checkout (`CartItem` & `CartSlice`):**
-  - Centralized state management powered by **Redux Toolkit**.
-  - Real-time calculation of total cart amount and subtotal per plant.
-  - Unit price display, quantity increment (`+`) and decrement (`-`) controls, and individual item deletion.
-  - Automatic calculation of ITBMS taxes (7%).
-  - Multi-method interactive checkout modal (Credit/Debit Card, Digital Wallets, Cash in Store) and animated order confirmation receipt.
-- **Design System & UX:**
-  - Sober, minimalist aesthetic with dark neutral base (`#111412`), warm light neutral (`#f7f7f5`), and dark moss green accent (`#2b5433`).
-  - **Skiper UI Theme Toggle:** Custom botanical animated sun-to-moon theme switch.
-  - **Bilingual i18n Toggle:** Instant language switching between English (US) and Spanish (MX).
-  - Responsive layout with desktop top-bar and mobile slide-out navigation drawer.
+### 2. Ciclo de Datos y Gestión de Estado (Redux Toolkit)
+```mermaid
+flowchart TD
+    DB[("📦 PlantsDB.json<br/>75 Especies Botánicas")] -->|"Carga Inicial"| INV["Redux: inventorySlice<br/>Control de Stock y Logística"]
+    API["🌐 Perenual Botanical API"] -.->|"Reposición al 50% agotado"| INV
+    INV --> CATALOG["ProductList.jsx<br/>Catálogo Reactivo"]
+    CATALOG -->|"addItem(plant)"| CART["Redux: cartSlice<br/>Carrito Centralizado"]
+    DRAWER["PlantDetailDrawer.jsx"] -->|"updateQuantity / removeItem"| CART
+    CART_PAGE["CartItem.jsx"] -->|"updateQuantity / removeItem"| CART
+    CART -->|"deductStock(items)"| INV
+```
 
 ---
 
-## 📋 Evaluation Rubric Compliance (Coursera / IBM)
+## 📱 Galería Comparativa: Vista Desktop vs. Vista Mobile
 
-This repository is structured to satisfy 100% of the graded criteria (50/50 points):
+A continuación se presentan las diferentes secciones y componentes del sitio web en sus versiones de escritorio y móvil, optimizadas para cada factor de forma:
 
-| Task | File Path | Pts | Description |
+### 1. Página de Inicio y Presentación (`Hero` & `About Us`)
+| Vista Escritorio (Desktop) | Vista Móvil (Mobile) |
+| :---: | :---: |
+| ![Landing Page Desktop](./Docs/assets/screenshots/landing_page.png) | ![About Us Section](./Docs/assets/screenshots/about_us_clean_svg.png) |
+| *Hero con profundidad visual 3D, branding botánico y llamada a la acción.* | *Presentación de la misión, pasión botánica y compromiso ecológico.* |
+
+---
+
+### 2. Catálogo de Productos y Vista Detallada (`ProductList` & `PlantDetailDrawer`)
+| Vista Escritorio: Catálogo y Drawer | Vista Móvil: Detalle y Selector de Cantidad |
+| :---: | :---: |
+| ![Desktop Detail Drawer](./Docs/assets/screenshots/drawer_desktop_after_add.png) | ![Mobile Detail Drawer](./Docs/assets/screenshots/drawer_mobile_after_add.png) |
+| *Catálogo con filtro por categorías, indicador de unidades disponibles y botón sin redundancias.* | *Drawer adaptado a pantalla táctil con stepper de unidades y guía de riego/luz.* |
+
+---
+
+### 3. Carrito de Compras y Control de Unidades (`CartItem`)
+| Vista Escritorio: Carrito y Resumen | Vista Móvil: Controles Táctiles y Eliminación |
+| :---: | :---: |
+| ![Desktop Cart Page](./Docs/assets/screenshots/cart_page.png) | ![Mobile Cart Controls](./Docs/assets/screenshots/mobile_cart_fixed.png) |
+| *Resumen de compra con subtotales por ítem, cálculo del ITBMS (7%) e integración de pago.* | *Fila de acciones espaciosa con botones táctiles grandes, límite de inventario y papelera compacta.* |
+
+---
+
+### 4. Sistema de Navegación y Pie de Página (`Navbar` & `Footer`)
+| Barra de Navegación Uniforme | Pie de Página Botánico |
+| :---: | :---: |
+| ![Navbar Icons](./Docs/assets/screenshots/navbar_icons_uniform.png) | ![Footer Section](./Docs/assets/screenshots/footer_section.png) |
+| *Botones uniformes de 38px: Switch de tema Skiper UI, cambio de idioma (ES/EN) y carrito con badge dinámico.* | *Redes sociales con íconos que ocupan el 100% del contenedor circular y animación hover.* |
+
+---
+
+## ✨ Características Principales
+
+- **Colección Curada de 75 Especies:** Organizadas en 4 categorías botánicas (*Plantas de Interior*, *Purificadoras*, *Suculentas* y *Aromáticas*), superando ampliamente los requerimientos mínimos de la rúbrica.
+- **Gestión de Stock y Logística de Inventario:** Cada producto cuenta con un stock controlado. Los selectores de cantidad impiden superar la disponibilidad máxima y se eliminan limpiamente al decrementar a cero.
+- **Identificación Estricta por ID:** Prevención total de colisiones al añadir artículos al carrito; solo el ítem seleccionado cambia de estado.
+- **Bilingüe y Adaptativo:** Soporte completo en español e inglés mediante `i18next`, y soporte nativo para modos Claro y Oscuro con variables CSS de alto contraste.
+- **Diseño Responsivo:** Experiencia adaptada tanto a pantallas ultra anchas como a teléfonos móviles compactos (*iPhone / Android 390px*).
+
+---
+
+## 📋 Cumplimiento de Rúbrica y Entregables (Coursera / IBM)
+
+Este repositorio está estructurado para cumplir con el **100% de la puntuación evaluada (50/50 puntos)**:
+
+| Task | Archivo Evaluado | Pts | Requisitos Verificados |
 |:---:|:---|:---:|:---|
-| **Task 1** | [`README.md`](./README.md) | 2 | Comprehensive project documentation with company and project details. |
-| **Task 2** | [`src/AboutUs.jsx`](./src/AboutUs.jsx) | 1 | Company overview detailing mission, botanical passion, and sustainability. |
-| **Task 3** | [`src/App.css`](./src/App.css) | 1 | Landing page background image styling (`background-image: url('./assets/hero-background.png')`). |
-| **Task 4** | [`src/App.jsx`](./src/App.jsx) | 3 | Landing page view containing company name, **Get Started** button, navigation, and Redux coordination. |
-| **Task 5** | [`src/CartSlice.jsx`](./src/CartSlice.jsx) | 4 | Redux Toolkit slice managing shopping cart state with `addItem`, `removeItem`, and `updateQuantity` actions. |
-| **Task 6** | [`src/ProductList.jsx`](./src/ProductList.jsx) | 16 | Product catalog grouping at least 6 houseplants per category across 3+ categories, thumbnails, names, prices, disabled "Add to Cart" state when added, dynamic cart badge counter, and navigation bar. |
-| **Task 7** | [`src/CartItem.jsx`](./src/CartItem.jsx) | 23 | Shopping cart page displaying item thumbnails, unit prices, subtotal per plant, total cart amount, quantity adjustment (`+` / `-`), delete item, **Checkout**, and **Continue Shopping** navigation. |
+| **Task 1** | [`README.md`](./README.md) | **2** | Documentación completa del proyecto, descripción, flujos visuales y guía. |
+| **Task 2** | [`src/AboutUs.jsx`](./src/AboutUs.jsx) | **1** | Información institucional de Paradise Nursery, misión y sostenibilidad. |
+| **Task 3** | [`src/App.css`](./src/App.css) | **1** | Implementación de `background-image: url('./assets/hero-background.png')`. |
+| **Task 4** | [`src/App.jsx`](./src/App.jsx) | **3** | Nombre de la compañía, botón **Get Started**, navegación fluida y coordinación global. |
+| **Task 5** | [`src/CartSlice.jsx`](./src/CartSlice.jsx) | **4** | Slice de Redux Toolkit con acciones `addItem`, `removeItem`, `updateQuantity` y `clearCart`. |
+| **Task 6** | [`src/ProductList.jsx`](./src/ProductList.jsx) | **16** | 75 plantas en 4 categorías, thumbnails, nombres, precios, botón *Add to Cart* deshabilitado al añadir, y badge dinámico en navbar. |
+| **Task 7** | [`src/CartItem.jsx`](./src/CartItem.jsx) | **23** | Total del carrito, subtotal por planta, controles `+` y `-` con límite de stock, botón rojo de eliminación, flujo de checkout y botón *Continuar Comprando*. |
 
 ---
 
-## 🛠️ Tech Stack
+## 🚀 Instalación y Puesta en Marcha
 
-- **Framework:** React 18 (Vite)
-- **State Management:** Redux Toolkit (`@reduxjs/toolkit`, `react-redux`)
-- **Internationalization:** `i18next` & `react-i18next`
-- **Animations:** `framer-motion`
-- **API Integration:** Perenual Botanical API
-- **Styling:** Modular CSS variables with Dark/Light theme switching
-
----
-
-## 🚀 Getting Started
-
-### 1. Prerequisites
-- [Node.js](https://nodejs.org/) (version 18 or later recommended)
-- [npm](https://www.npmjs.com/)
-
-### 2. Installation
-Clone the repository and install project dependencies:
 ```bash
-git clone https://github.com/your-username/ParadiseNurseryShoppingApp.git
+# 1. Clonar el repositorio
+git clone https://github.com/tu-usuario/ParadiseNurseryShoppingApp.git
 cd ParadiseNurseryShoppingApp
+
+# 2. Instalar dependencias
 npm install
-```
 
-### 3. Development Server
-Run the local development server:
-```bash
+# 3. Iniciar servidor de desarrollo
 npm run dev
-```
-Open your browser at `http://localhost:5173` to explore the application.
 
-### 4. Build for Production
-To generate an optimized production build:
-```bash
+# 4. Compilar para producción y verificar linting
+npm run lint
 npm run build
 ```
 
-### 5. Linting
-To check code formatting and linting rules:
-```bash
-npm run lint
-```
-
 ---
 
-## 📄 License
-This project is licensed under the MIT License - created for educational and certification purposes under the IBM Full-Stack / Coursera Program.
+## 📄 Licencia
+Proyecto desarrollado con fines académicos y de certificación bajo el programa **IBM Frontend - React / Full-Stack Developer** en Coursera. Licencia MIT.

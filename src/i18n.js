@@ -17,7 +17,7 @@ const resources = {
         title: 'Paradise Nursery',
         subtitle: 'Shopping web app',
         description:
-          'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.',
+          'Curated botanical houseplants to cultivate serenity, clean indoor air, and bring natural elegance to modern living spaces.',
         getStarted: 'Get started',
       },
       catalog: {
@@ -173,7 +173,7 @@ const resources = {
         title: 'Paradise Nursery',
         subtitle: 'Shopping web app',
         description:
-          'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris.',
+          'Plantas de interior seleccionadas para cultivar serenidad, purificar tus espacios y conectar tu hogar con la elegancia natural.',
         getStarted: 'Comenzar',
       },
       catalog: {

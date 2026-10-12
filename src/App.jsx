@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import Navbar from './components/Navbar/Navbar'
 import Footer from './components/Footer/Footer'
 import LandingPage from './pages/LandingPage/LandingPage'
@@ -7,26 +7,24 @@ import CartItem from './components/Cart/CartItem'
 import './App.css'
 
 function App() {
-  const [currentPage, setCurrentPage] = useState('landing') // 'landing' | 'catalog' | 'cart'
+  const [currentPage, setCurrentPage] = useState('landing')
   const [theme, setTheme] = useState('dark')
 
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', theme)
   }, [theme])
 
-  const handleToggleTheme = () => {
-    setTheme((prev) => (prev === 'dark' ? 'light' : 'dark'))
-  }
-
-  // Navegación fluida con scroll suave hacia arriba
   const handleNavigate = (page) => {
     setCurrentPage(page)
     window.scrollTo({ top: 0, behavior: 'smooth' })
   }
 
+  const handleToggleTheme = () => {
+    setTheme((previousTheme) => (previousTheme === 'dark' ? 'light' : 'dark'))
+  }
+
   return (
     <div className="app-container">
-      {/* 7. Navbar global visible en Product Listing y Cart (Tasks 6.7, 6.8) */}
       <Navbar
         currentPage={currentPage}
         onNavigate={handleNavigate}
@@ -34,17 +32,17 @@ function App() {
         onToggleTheme={handleToggleTheme}
       />
 
-      {/* Página de Inicio / Landing con Hero, Nombre de Compañía, Botón Get Started y AboutUs (Tasks 2, 3, 4) */}
+      {/* Coursera Task 4: Landing page with Paradise Nursery and Get Started. */}
       {currentPage === 'landing' && (
-        <LandingPage onNavigate={handleNavigate} />
+        <LandingPage
+          onNavigate={handleNavigate}
+          companyName="Paradise Nursery"
+          ctaLabel="Get Started"
+        />
       )}
 
-      {/* Página de Catálogo de Productos (Task 6) */}
-      {currentPage === 'catalog' && (
-        <ProductList onNavigate={handleNavigate} />
-      )}
+      {currentPage === 'catalog' && <ProductList onNavigate={handleNavigate} />}
 
-      {/* Página del Carrito de Compras (Task 7) */}
       {currentPage === 'cart' && (
         <CartItem
           onNavigate={handleNavigate}
@@ -52,7 +50,6 @@ function App() {
         />
       )}
 
-      {/* Footer interactivo con animación Motion y enlaces de navegación */}
       <Footer onNavigate={handleNavigate} />
     </div>
   )

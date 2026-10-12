@@ -1,7 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit'
 import plantsDbData from '../../data/PlantsDB.json'
 
-const STORAGE_KEY = 'paradise_nursery_inventory_v2'
+// v4 refreshes cached inventory so updated catalog images are visible to returning users.
+const STORAGE_KEY = 'paradise_nursery_inventory_v4'
 const HISTORY_STORAGE_KEY = 'paradise_nursery_restock_history_v2'
 
 const loadInitialInventory = () => {

@@ -5,7 +5,7 @@ import heroFront from '../../assets/hero-front.png'
 import heroLight from '../../assets/hero-light.png'
 import './Hero.css'
 
-function Hero({ onGetStarted }) {
+function Hero({ onGetStarted, companyName, ctaLabel }) {
   const { t } = useTranslation()
   const containerRef = useRef(null)
   const rafId = useRef(null)
@@ -51,7 +51,8 @@ function Hero({ onGetStarted }) {
       className="hero-section"
       onMouseMove={handleMouseMove}
       onMouseLeave={handleMouseLeave}
-      aria-label="Presentación principal"
+      aria-label={`${companyName} — Presentación principal`}
+      data-cta-label={ctaLabel}
       style={{ '--mx': '0', '--my': '0' }}
     >
       {/* Capa 1: Fondo de plantas */}

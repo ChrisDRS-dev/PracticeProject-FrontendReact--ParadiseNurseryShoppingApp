@@ -1,4 +1,7 @@
 .payment-form-container {
+  width: 100%;
+  max-width: 100%;
+  box-sizing: border-box;
   background: var(--bg-surface);
   border: 1px solid var(--border-subtle);
   border-radius: 20px;
@@ -32,6 +35,8 @@
 }
 
 .method-tab-btn {
+  min-width: 0;
+  width: 100%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -51,6 +56,11 @@
 .method-tab-btn:hover {
   color: var(--color-text);
   border-color: var(--border-hover);
+}
+
+.method-tab-btn span {
+  max-width: 100%;
+  overflow-wrap: anywhere;
 }
 
 .method-tab-btn.active {
@@ -117,14 +127,17 @@
 }
 
 .card-number-display {
+  min-width: 0;
+  overflow-wrap: anywhere;
   font-family: monospace;
-  font-size: 1.2rem;
-  letter-spacing: 0.16em;
+  font-size: clamp(0.78rem, 4vw, 1.2rem);
+  letter-spacing: clamp(0.04em, 1vw, 0.16em);
   margin-bottom: 1.25rem;
   color: #f1f5f9;
 }
 
 .card-footer-display {
+  min-width: 0;
   display: flex;
   justify-content: space-between;
   align-items: flex-end;
@@ -140,6 +153,10 @@
 
 .card-name-text,
 .card-exp-text {
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
   font-size: 0.86rem;
   font-weight: 600;
   margin: 0;
@@ -162,6 +179,10 @@
 }
 
 .input-field {
+  width: 100%;
+  max-width: 100%;
+  min-width: 0;
+  box-sizing: border-box;
   background: var(--bg-surface-elevated);
   border: 1px solid var(--border-subtle);
   border-radius: 10px;
@@ -177,6 +198,7 @@
 }
 
 .form-row-two {
+  min-width: 0;
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 1rem;
@@ -327,5 +349,56 @@
 @keyframes spin {
   to {
     transform: rotate(360deg);
+  }
+}
+
+@media (max-width: 540px) {
+  .payment-form-container {
+    padding: 1.15rem;
+    border-radius: 16px;
+  }
+
+  .payment-methods-selector {
+    gap: 0.4rem;
+  }
+
+  .method-tab-btn {
+    padding: 0.7rem 0.35rem;
+    font-size: 0.72rem;
+  }
+
+  .method-icon {
+    width: 19px;
+    height: 19px;
+  }
+
+  .card-mockup-preview {
+    padding: 1rem;
+  }
+
+  .card-number-display {
+    margin-bottom: 1rem;
+  }
+
+  .card-name-text,
+  .card-exp-text {
+    font-size: 0.76rem;
+  }
+}
+
+@media (max-width: 360px) {
+  .payment-methods-selector {
+    grid-template-columns: 1fr;
+  }
+
+  .method-tab-btn {
+    flex-direction: row;
+    justify-content: center;
+    min-height: 44px;
+  }
+
+  .form-row-two {
+    grid-template-columns: 1fr;
+    gap: 0;
   }
 }

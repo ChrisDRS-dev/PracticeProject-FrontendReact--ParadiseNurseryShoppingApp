@@ -54,7 +54,7 @@ export default function PlantDetailDrawer({
 
   // Estado del producto en el carrito desde Redux
   const cartItem = cartItems.find(
-    (item) => item.id === plant.id || item.name === plantName || item.title === plantName,
+    (item) => String(item.id) === String(plant.id),
   )
   const cartQuantity = cartItem ? cartItem.quantity : 0
   const isItemInCart = cartQuantity > 0 || propIsInCart

@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { useTranslation } from 'react-i18next'
 import { removeItem, updateQuantity, clearCart } from '../../redux/slices/cartSlice'
-import { deductStock } from '../../redux/slices/inventorySlice'
+import { deductStock, selectInventoryItems } from '../../redux/slices/inventorySlice'
 import PaymentForm from './PaymentForm'
 import PaymentConfirmation from './PaymentConfirmation'
 import './CartItem.css'
@@ -11,9 +11,16 @@ function CartItem({ onContinueShopping, onNavigate }) {
   const { t } = useTranslation()
   const dispatch = useDispatch()
   const cartItems = useSelector((state) => state.cart.items)
+  const inventoryItems = useSelector(selectInventoryItems)
 
   const [isCheckoutOpen, setIsCheckoutOpen] = useState(false)
   const [confirmedOrder, setConfirmedOrder] = useState(null)
+
+  // Obtener el stock disponible para un ítem determinado
+  const getItemStock = (item) => {
+    const invItem = inventoryItems?.find((p) => String(p.id) === String(item.id))
+    return invItem?.stock ?? item.stock ?? 10
+  }
 
   // 1. Cálculo del monto total del carrito (Task 7.1)
   const calculateTotalAmount = () => {
@@ -35,18 +42,21 @@ function CartItem({ onContinueShopping, onNavigate }) {
     return price * item.quantity
   }
 
-  // 4. Incrementar cantidad (Task 7.4)
+  // 4. Incrementar cantidad con límite de stock disponible (Task 7.4)
   const handleIncrement = (item) => {
-    dispatch(
-      updateQuantity({
-        id: item.id,
-        name: item.name || item.title,
-        quantity: item.quantity + 1,
-      }),
-    )
+    const maxStock = getItemStock(item)
+    if (item.quantity < maxStock) {
+      dispatch(
+        updateQuantity({
+          id: item.id,
+          name: item.name || item.title,
+          quantity: item.quantity + 1,
+        }),
+      )
+    }
   }
 
-  // 4. Decrementar cantidad (Task 7.4)
+  // 4. Decrementar cantidad: si llega a 0, se elimina automáticamente del carrito (Task 7.4)
   const handleDecrement = (item) => {
     if (item.quantity > 1) {
       dispatch(
@@ -63,7 +73,7 @@ function CartItem({ onContinueShopping, onNavigate }) {
 
   // 5. Botón eliminar para cada item (Task 7.5)
   const handleRemove = (item) => {
-    dispatch(removeItem(item.id || item.name || item.title))
+    dispatch(removeItem({ id: item.id, name: item.name || item.title }))
   }
 
   // 7. Botón Continuar Comprando (Task 7.7)
@@ -161,85 +171,103 @@ function CartItem({ onContinueShopping, onNavigate }) {
                     ? item.price
                     : parseFloat(String(item.cost || item.price || 0).replace('$', '')) || 0
                 const itemTotal = calculateTotalCost(item)
+                const maxStock = getItemStock(item)
 
                 return (
                   <article key={item.id || item.name} className="cart-card-item" role="listitem">
-                    {/* 3. Thumbnail */}
-                    <div className="cart-thumb-box">
-                      <img
-                        src={item.image}
-                        alt={item.name || item.title}
-                        className="cart-thumb-img"
-                        loading="lazy"
-                        onError={(e) => {
-                          e.target.src =
-                            'https://images.unsplash.com/photo-1614594975525-e45190c55d0b?auto=format&fit=crop&w=600&q=80'
-                        }}
-                      />
-                    </div>
+                    {/* Fila Principal: Thumbnail + Información de la Planta */}
+                    <div className="cart-item-main-row">
+                      {/* 3. Thumbnail */}
+                      <div className="cart-thumb-box">
+                        <img
+                          src={item.image}
+                          alt={item.name || item.title}
+                          className="cart-thumb-img"
+                          loading="lazy"
+                          referrerPolicy="no-referrer"
+                          onError={(e) => {
+                            e.target.src =
+                              'https://images.unsplash.com/photo-1614594975525-e45190c55d0b?auto=format&fit=crop&w=600&q=80'
+                          }}
+                        />
+                      </div>
 
-                    {/* 3. Nombre y Precio Unitario */}
-                    <div className="cart-info-box">
-                      <h3 className="cart-item-name">{item.name || item.title}</h3>
-                      <p className="cart-unit-cost">
-                        {t('cart.price', 'Precio Unitario')}:{' '}
-                        <span>${unitPrice.toFixed(2)}</span>
-                      </p>
-                      {/* 2. Total cost for each plant */}
-                      <p className="cart-total-cost-line">
-                        {t('cart.subtotal', 'Subtotal')}:{' '}
-                        <strong>${itemTotal.toFixed(2)}</strong>
-                      </p>
-                    </div>
-
-                    {/* 4. Botones para incrementar y decrementar cantidad */}
-                    <div className="cart-qty-box">
-                      <span className="qty-label">{t('cart.quantity', 'Cantidad')}:</span>
-                      <div className="qty-btn-group">
-                        <button
-                          type="button"
-                          className="qty-action-btn"
-                          onClick={() => handleDecrement(item)}
-                          aria-label={`Disminuir cantidad de ${item.name || item.title}`}
-                        >
-                          -
-                        </button>
-                        <span className="qty-counter-badge">{item.quantity}</span>
-                        <button
-                          type="button"
-                          className="qty-action-btn"
-                          onClick={() => handleIncrement(item)}
-                          aria-label={`Aumentar cantidad de ${item.name || item.title}`}
-                        >
-                          +
-                        </button>
+                      {/* 3. Nombre, Precio Unitario y Subtotal */}
+                      <div className="cart-info-box">
+                        <h3 className="cart-item-name">{item.name || item.title}</h3>
+                        <p className="cart-unit-cost">
+                          {t('cart.price', 'Precio Unitario')}:{' '}
+                          <span>${unitPrice.toFixed(2)}</span>
+                        </p>
+                        {/* 2. Total cost for each plant */}
+                        <p className="cart-total-cost-line">
+                          {t('cart.subtotal', 'Subtotal')}:{' '}
+                          <strong>${itemTotal.toFixed(2)}</strong>
+                        </p>
                       </div>
                     </div>
 
-                    {/* 5. Botón Delete */}
-                    <div className="cart-delete-box">
-                      <button
-                        type="button"
-                        className="cart-delete-btn"
-                        onClick={() => handleRemove(item)}
-                        aria-label={`Eliminar ${item.name || item.title} del carrito`}
-                        title={t('cart.removeItem', 'Eliminar del carrito')}
-                      >
-                        <svg
-                          viewBox="0 0 24 24"
-                          fill="none"
-                          stroke="currentColor"
-                          strokeWidth="2"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          aria-hidden="true"
+                    {/* Fila de Acciones: Selector de Cantidad Dinámico y Botón Eliminar Compacto */}
+                    <div className="cart-card-actions">
+                      {/* 4. Botones para incrementar y decrementar cantidad */}
+                      <div className="cart-qty-box">
+                        <span className="qty-label">{t('cart.quantity', 'Cantidad')}:</span>
+                        <div className="qty-btn-group">
+                          <button
+                            type="button"
+                            className="qty-action-btn"
+                            onClick={() => handleDecrement(item)}
+                            aria-label={`Disminuir cantidad de ${item.name || item.title}`}
+                            title={
+                              item.quantity === 1
+                                ? t('cart.removeItem', 'Eliminar del carrito')
+                                : undefined
+                            }
+                          >
+                            -
+                          </button>
+                          <span className="qty-counter-badge">{item.quantity}</span>
+                          <button
+                            type="button"
+                            className="qty-action-btn"
+                            disabled={item.quantity >= maxStock}
+                            onClick={() => handleIncrement(item)}
+                            aria-label={`Aumentar cantidad de ${item.name || item.title}`}
+                            title={
+                              item.quantity >= maxStock
+                                ? `Máximo disponible: ${maxStock} unidades`
+                                : undefined
+                            }
+                          >
+                            +
+                          </button>
+                        </div>
+                      </div>
+
+                      {/* 5. Botón Delete compacto con ícono de papelera */}
+                      <div className="cart-delete-box">
+                        <button
+                          type="button"
+                          className="cart-delete-btn"
+                          onClick={() => handleRemove(item)}
+                          aria-label={`${t('cart.removeItem', 'Eliminar')} ${item.name || item.title}`}
+                          title={t('cart.removeItem', 'Eliminar del carrito')}
                         >
-                          <path d="M3 6h18M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
-                          <line x1="10" y1="11" x2="10" y2="17" />
-                          <line x1="14" y1="11" x2="14" y2="17" />
-                        </svg>
-                        <span>{t('cart.removeItem', 'Eliminar')}</span>
-                      </button>
+                          <svg
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            strokeWidth="2"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            aria-hidden="true"
+                          >
+                            <path d="M3 6h18M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
+                            <line x1="10" y1="11" x2="10" y2="17" />
+                            <line x1="14" y1="11" x2="14" y2="17" />
+                          </svg>
+                        </button>
+                      </div>
                     </div>
                   </article>
                 )
@@ -321,4 +349,3 @@ function CartItem({ onContinueShopping, onNavigate }) {
 }
 
 export default CartItem
-

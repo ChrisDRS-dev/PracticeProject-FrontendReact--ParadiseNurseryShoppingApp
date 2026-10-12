@@ -143,27 +143,27 @@
   gap: 0.75rem;
 }
 
-/* Carrito con asset */
+/* Carrito con asset que ocupa el tamaño completo del contenedor */
 .navbar-cart-btn {
   position: relative;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  width: 42px;
-  height: 42px;
-  border-radius: 50%;
-  border: 1px solid var(--border-subtle);
-  background: var(--bg-surface);
+  width: 38px;
+  height: 38px;
+  padding: 0;
+  border: none;
+  background: transparent;
   color: var(--color-text);
   cursor: pointer;
-  transition: all 0.2s ease;
-  box-shadow: var(--shadow-card);
+  border-radius: 50%;
+  transition: opacity 0.2s ease;
+  outline: none;
 }
 
-.navbar-cart-btn:hover,
-.navbar-cart-btn.active {
-  border-color: var(--accent-moss);
-  transform: translateY(-1px);
+.navbar-cart-btn:focus-visible {
+  outline: 2px solid var(--accent-moss);
+  outline-offset: 3px;
 }
 
 .navbar-cart-btn:active {
@@ -171,32 +171,39 @@
 }
 
 .cart-asset-icon {
-  width: 22px;
-  height: 22px;
+  width: 100%;
+  height: 100%;
   object-fit: contain;
+  border-radius: 50%;
   display: block;
+  transition: transform 0.24s cubic-bezier(0.34, 1.56, 0.64, 1), filter 0.2s ease;
 }
 
-[data-theme='dark'] .cart-asset-icon {
-  filter: brightness(1.2) invert(0.1);
+.navbar-cart-btn:hover .cart-asset-icon,
+.navbar-cart-btn.active .cart-asset-icon {
+  transform: scale(1.18);
+  filter: drop-shadow(0 4px 10px rgba(0, 0, 0, 0.35));
 }
 
 .cart-badge {
   position: absolute;
   top: -4px;
   right: -4px;
-  min-width: 20px;
-  height: 20px;
+  min-width: 19px;
+  height: 19px;
   padding: 0 5px;
   border-radius: 9999px;
   background-color: var(--accent-moss);
-  color: var(--accent-moss-text);
-  font-size: 0.75rem;
+  color: var(--accent-moss-text, #ffffff);
+  font-size: 0.72rem;
   font-weight: 700;
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.35);
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.45);
+  border: 1.5px solid var(--bg-base);
+  z-index: 2;
+  pointer-events: none;
 }
 
 /* ========================================= */
